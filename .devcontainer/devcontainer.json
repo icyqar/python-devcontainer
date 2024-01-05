@@ -1,6 +1,6 @@
 {
 	// Name of the container
-	"name": "Python 3 Development",
+	"name": "Python Development",
 
 	// Use the local Containerfile
 	"build": {
@@ -13,14 +13,17 @@
 				// Disable VSCode minimap
 				"editor.minimap.enabled": false,
 
-				//Use bash as the default shell on Linux
-				"terminal.integrated.defaultProfile.linux": "bash",
+				//Use fish as the default shell on Linux
+				"terminal.integrated.defaultProfile.linux": "fish",
 
 				// HIde files ignored by git
 				"explorer.excludeGitIgnore": true,
 
 				// Uses all ancestor .gitignore files
-				"search.useParentIgnoreFiles": true,
+				// "search.useParentIgnoreFiles": true,
+
+				// Enable git autofetch
+				"git.autofetch": true,
 
 				// Enable word wrapping
 				"editor.wordWrap": "on",
@@ -36,6 +39,9 @@
 
 				// Disable telemtry for AWS Toolkit
 				"aws.telemetry": false,
+
+				// Enable file nesting
+				"explorer.fileNesting.enabled": true,
 
 				// JSON Language Settings
 				"[json][jsonc]": {
