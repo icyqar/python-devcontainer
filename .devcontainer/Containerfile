@@ -44,7 +44,7 @@ RUN apt-get install npm -y > /dev/null
 RUN npm install -g prettier > /dev/null
 
 # Install common build tools needed by C libraries used by Python packages
-RUN apt-get install automake -y > /dev/null
+RUN apt-get install automake libtool -y > /dev/null
 
 # Name of the user within the container
 ENV USER devcontainer
