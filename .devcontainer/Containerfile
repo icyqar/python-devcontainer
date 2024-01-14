@@ -64,6 +64,9 @@ RUN echo "${USER}:devcontainer" | chpasswd
 # Add the user to the sudo group
 RUN adduser "${USER}" sudo > /dev/null
 
+# Allow the user to run sudo without a password
+RUN echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 # Switch to the new user 
 USER "${USER}"
 WORKDIR "/home/${USER}"
