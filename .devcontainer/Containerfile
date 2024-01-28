@@ -105,4 +105,4 @@ ENV EDITOR="code --wait"
 RUN pipx install poetry
 
 # Instruct Poetry projects to keep the venv in the project directory
-ENV POETRY_VIRTUALENVS_IN_PROJECT=true
+# ENV POETRY_VIRTUALENVS_IN_PROJECT=true

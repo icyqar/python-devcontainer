@@ -6,6 +6,12 @@
 	"build": {
 		"dockerfile": "Containerfile"
 	},
+	"runArgs": [
+		// Requires Podman not Docker
+		// Shares host UID with container user
+		// Allows the container user to access the project files stored amd owned by the host
+		"--userns=keep-id"
+	],
 	"customizations": {
 		"vscode": {
 			//Settings for VSCode
@@ -83,11 +89,5 @@
 				"mechatroner.rainbow-csv"
 			]
 		}
-	},
-	"runArgs": [
-		// Requires Podman not Docker
-		// Shares host UID with container user
-		// Allows the container user to access the project files stored amd owned by the host
-		"--userns=keep-id"
-	]
+	}
 }
