@@ -46,6 +46,8 @@ RUN npm install -g prettier > /dev/null
 # Install common build tools needed by C libraries used by Python packages
 RUN apt-get install automake libtool -y > /dev/null
 
+# Install ping 
+RUN apt-get install -y iputils-ping -y > /dev/null
 # Name of the user within the container
 ENV USER devcontainer
 

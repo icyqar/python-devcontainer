@@ -12,6 +12,11 @@
 		// Allows the container user to access the project files stored amd owned by the host
 		"--userns=keep-id"
 	],
+	// Capabilities to add to the container
+	"capAdd": [
+		// Allows container to ping other machines
+		"NET_RAW"
+	],
 	"customizations": {
 		"vscode": {
 			//Settings for VSCode
