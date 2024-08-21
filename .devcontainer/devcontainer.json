@@ -1,0 +1,71 @@
+{
+	// Name of the container
+	"name": "Python Development",
+	// Use the local Containerfile
+	"build": {
+		"dockerfile": "Containerfile"
+	},
+	"containerEnv": {
+		// Use VSCode as the default editor
+		"EDITOR": "code"
+	},
+	"customizations": {
+		"vscode": {
+			//Settings for VSCode
+			"settings": {
+				// Default shell for the terminal
+				"terminal.integrated.defaultProfile.linux": "fish",
+				// Format source files on save
+				"editor.formatOnSave": true,
+				// Disable telemetry for VSCode
+				"telemetry.telemetryLevel": "off",
+				// Enable file nesting
+				"explorer.fileNesting.enabled": true,
+				// Enable word wrapping
+				"editor.wordWrap": "on",
+				// JSON Language Settings
+				"[json][jsonc]": {
+					// Use prettier to format JSON files
+					"editor.defaultFormatter": "vscode.json-language-features"
+				},
+				"[python]": {
+					// Set the default formatter to black
+					"editor.defaultFormatter": "ms-python.black-formatter"
+				},
+				// Set the Python type checking mode to basic
+				// Avoid strict since many popular libraries like Pandas/Numpy will complain
+				"python.analysis.typeCheckingMode": "basic",
+				// Set the Python venv folders to look for
+				"python.venvFolders": [
+					// Poetry venvs
+					"~/.cache/pypoetry/virtualenvs"
+				]
+			},
+			"extensions": [
+
+				// dotenv(".env") language support
+				"mikestead.dotenv",
+				// Live Share Extension to share code with others
+				"ms-vsliveshare.vsliveshare",
+				// Live Preview Extension to preview HTML files within VSCode
+				"ms-vscode.live-server",
+				// Python Extension
+				"ms-python.python",
+				// Pylance Extension
+				"ms-python.vscode-pylance",
+				// Black Formatter to lint Python code
+				"ms-python.black-formatter",
+				// Indent rainbow helps visualize indentation
+				"oderwat.indent-rainbow",
+				// Needed to enable TOML support in VSCode
+				"tamasfe.even-better-toml",
+				// Rainbow CSV to colorize CSV files
+				"mechatroner.rainbow-csv",
+				// Syntax highlighting for Fish shell scripts
+				"bmalehorn.vscode-fish",
+				// Syntax highlighting for Bash shell scripts
+				"mads-hartmann.bash-ide-vscode"
+			]
+		}
+	}
+}

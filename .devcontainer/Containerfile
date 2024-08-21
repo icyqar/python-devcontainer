@@ -1,0 +1,66 @@
+FROM docker.io/debian:latest
+
+# Variables recommended for Debian Container image
+# Recommended below
+# github.com/phusion/baseimage-docker/issues/319#issuecomment-1066174043
+ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBCONF_NOWARNINGS="yes"
+
+# Update the OS
+RUN apt-get update > /dev/null
+
+# +-------------------------------------------------------------------------------------------------------------------+ 
+# Install tools needed that are commonly found on a standard Debian install
+
+# Install locales data
+RUN apt-get install locales-all -y > /dev/null
+
+# Install curl
+RUN apt-get install curl -y > /dev/null
+
+# Install git 
+RUN apt-get install git -y > /dev/null
+
+# Install systemctl 
+RUN apt-get install systemd -y > /dev/null
+
+# Install ping 
+RUN apt-get install iputils-ping -y > /dev/null
+
+# +-------------------------------------------------------------------------------------------------------------------+ 
+# Install python development tools
+
+# Install python3
+RUN apt-get install python3 -y > /dev/null
+RUN apt-get install python3-pip -y > /dev/null
+RUN apt-get install python3-virtualenv -y > /dev/null
+RUN apt-get install python3-venv -y > /dev/null
+RUN apt-get install python-is-python3 -y > /dev/null
+RUN apt-get install pipx -y > /dev/null 
+
+# Install Poetry 
+RUN pip install poetry --break-system-packages
+
+# Install miniconda and add it to the PATH
+RUN ARCH=$(uname -m) && curl -Ls "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-${ARCH}.sh" -o /tmp/miniconda.sh
+RUN chmod +x /tmp/miniconda.sh
+# -b: batch mode, no prompts. Equivalent to answering 'yes' to all prompts
+# -p: installation path
+RUN /tmp/miniconda.sh -b -p "/home/${USER}/conda"
+RUN rm -rf /tmp/miniconda.sh
+ENV PATH="${PATH}:/home/${USER}/conda/condabin"
+
+# +-------------------------------------------------------------------------------------------------------------------+ 
+# Install shell tools 
+
+# Install fish shell
+RUN apt-get install fish -y > /dev/null
+
+# Install direnv
+RUN apt-get install direnv -y > /dev/null 
+
+# Hook direnv into the fish and bash shells
+# Bash
+RUN echo 'eval "$(direnv hook bash)"' | tee -a "/etc/bash.bashrc"
+# Fish
+RUN echo 'direnv hook fish | source' | tee -a "/etc/fish/config.fish"
