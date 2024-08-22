@@ -38,7 +38,7 @@ jobs:
           devcontainer build \
             --workspace-folder . \
             --image-name "built_container:latest" \
-            --platform linux/amd64 \
+            --platform linux/amd64
             
         env:
           DOCKER_BUILDKIT: 1
@@ -49,6 +49,4 @@ jobs:
           docker tag built_container "${{ env.REGISTRY }}/${{ github.repository }}:latest"
   
           docker push --all-tags "${{ env.REGISTRY }}/${{ github.repository }}"
-        permissions:
-          contents: read
-          packages: write
+
