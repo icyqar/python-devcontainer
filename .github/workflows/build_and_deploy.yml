@@ -45,5 +45,8 @@ jobs:
 
       - name: Tag & push the container
         run: |
-          echo $(docker images)
-          echo "github SHA ${GITHUB_SHA}"
+          docker tag built_container "${{ env.REGISTRY }}/${{ github.repository }}:${GITHUB_SHA}"
+          docker tag built_container "${{ env.REGISTRY }}/${{ github.repository }}:latest"
+  
+          docker push --all-tags "${{ env.REGISTRY }}/${{ github.repository }}"
+
