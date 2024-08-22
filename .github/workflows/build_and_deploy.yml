@@ -37,7 +37,7 @@ jobs:
         run: |
           devcontainer build \
             --workspace-folder . \
-            --image-name "${{ env.REGISTRY }}/${{ github.repository }}:0.0.1" \
+            --image-name "built_container:latest" \
             --platform linux/amd64 \
             
         env:
