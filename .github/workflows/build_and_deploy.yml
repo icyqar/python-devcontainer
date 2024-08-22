@@ -49,4 +49,6 @@ jobs:
           docker tag built_container "${{ env.REGISTRY }}/${{ github.repository }}:latest"
   
           docker push --all-tags "${{ env.REGISTRY }}/${{ github.repository }}"
-
+        permissions:
+          contents: read
+          packages: write
