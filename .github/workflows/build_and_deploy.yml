@@ -37,7 +37,7 @@ jobs:
         run: |
           devcontainer build \
             --workspace-folder . \
-            --image-name "${{ env.REGISTRY }}/${{ github.repository }}:0.0.25" \
+            --image-name "${{ env.REGISTRY }}/${{ github.repository }}:0.0.1" \
             --platform linux/amd64 \
             
         env:
@@ -46,3 +46,4 @@ jobs:
       - name: Tag & push the container
         run: |
           echo $(docker images)
+          echo "github SHA ${GITHUB_SHA}"
