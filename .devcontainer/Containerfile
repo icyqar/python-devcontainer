@@ -59,8 +59,6 @@ RUN apt-get install fish -y > /dev/null
 # Install direnv
 RUN apt-get install direnv -y > /dev/null 
 
-RUN apt-get install podman -y > /dev/null 
-
 # Hook direnv into the fish and bash shells
 # Bash
 RUN echo 'eval "$(direnv hook bash)"' | tee -a "/etc/bash.bashrc"
