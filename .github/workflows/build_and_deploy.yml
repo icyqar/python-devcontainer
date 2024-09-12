@@ -39,7 +39,7 @@ jobs:
           devcontainer build \
             --workspace-folder . \
             --image-name "built_container:latest" \
-            --platform linux/arm64, linux/amd64
+            --platform linux/arm64,linux/amd64
             
         env:
           DOCKER_BUILDKIT: 1
