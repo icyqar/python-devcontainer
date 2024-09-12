@@ -6,6 +6,7 @@ on:
       - "**"
 env:
   REGISTRY: ghcr.io
+  USERNAME: "${{ github.actor }}"
 
 jobs:
   build-and-push:
@@ -21,7 +22,7 @@ jobs:
       - name: Log in to container registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login \
-            --username "${{ github.actor }}" \
+            --username "${{ env.USERNAME }}" \
             --password-stdin \
             "${{ env.REGISTRY }}"
 
@@ -38,7 +39,7 @@ jobs:
           devcontainer build \
             --workspace-folder . \
             --image-name "built_container:latest" \
-            --platform linux/amd64
+            --platform linux/arm64, linux/amd64
             
         env:
           DOCKER_BUILDKIT: 1
