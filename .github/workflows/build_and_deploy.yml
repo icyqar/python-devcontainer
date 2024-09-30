@@ -6,7 +6,12 @@ on:
       - "**"
 env:
   REGISTRY: ghcr.io
+
+  # Set to the Github user that triggered the Github Action
   USERNAME: "${{ github.actor }}"
+  
+  # Directory containing the devcontainer source files
+  SRC_DIR: "./src"
 
 jobs:
   build-and-push:
@@ -19,6 +24,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # Log into the container registry
       - name: Log in to container registry
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login \
@@ -26,27 +32,32 @@ jobs:
             --password-stdin \
             "${{ env.REGISTRY }}"
 
+      # Install the 'devcontainer' cli tool
+      - name: Install devcontainer
+        run: npm install -g @devcontainers/cli
+
+      # Install Node
+      # Needed by the 'devcontainer' cli tool
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "latest"
 
-      - name: Install devcontainer
-        run: npm install -g @devcontainers/cli
-
+      # Use the 'devcontainer' cli tool to build the devcontainer Docker image
       - name: Build the devcontainer
         run: |
           devcontainer build \
-            --workspace-folder ./src \
+            --workspace-folder "${{ env.SRC_DIR }}" \
             --image-name "built_container:latest" \
             --platform linux/amd64
             
         env:
           DOCKER_BUILDKIT: 1
 
+      # Update the remote registry with the newly built version
       - name: Tag & push the container
         run: |
-          docker tag built_container "${{ env.REGISTRY }}/${{ github.repository }}:${GITHUB_SHA}"
+          docker tag built_container "${{ env.REGISTRY }}/${{ github.repository }}:${{ github.sha }}"
           docker tag built_container "${{ env.REGISTRY }}/${{ github.repository }}:latest"
           docker push --all-tags "${{ env.REGISTRY }}/${{ github.repository }}"
 
